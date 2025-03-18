@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.4"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>Salon Booking (Decoy UI)</title>
+</head>
+<body class="bg-gray-100 flex justify-center items-center h-screen">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-1/2">
+        <h1 class="text-2xl font-bold text-center mb-4">Salon Booking - Demo</h1>
+
+        <label class="block mb-2">Select Service</label>
+        <select class="border p-2 w-full" id="service">
+            <option>Haircut</option>
+            <option>Massage</option>
+            <option>Facial</option>
+        </select>
+
+        <label class="block mt-4 mb-2">Select Date & Time</label>
+        <input type="datetime-local" class="border p-2 w-full" id="datetime">
+
+        <button class="bg-blue-500 text-white px-4 py-2 rounded-lg mt-4 w-full"
+            hx-post="#"
+            hx-trigger="click"
+            hx-target="#confirmation"
+            onclick="fakeBooking()">
+            Book Now
+        </button>
+
+        <div id="confirmation" class="text-green-600 font-bold mt-4"></div>
+    </div>
+
+    <script type="py">
+import pyscript
+from pyscript import display
+import random
+
+def fakeBooking():
+    service = document.querySelector("#service").value
+    date_time = document.querySelector("#datetime").value
+    response_messages = [
+        "✅ Booking confirmed for " + service + " on " + date_time,
+        "⚠️ Sorry, no slots available. Try a different time.",
+        "✅ Your appointment is set! See you soon."
+    ]
+    display(random.choice(response_messages), target="confirmation")
+    </script>
+</body>
+</html>
